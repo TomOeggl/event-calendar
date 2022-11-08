@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from '../src/components/Header.js'
+import EventListed from '../src/components/EventListed.js'
+import { data } from '../src/assets/sportData.js'
+//import sportData from '../src/assets/sportData.json'
 
 function App() {
+  const sportData = data;
+
+  // const mockData = {
+  //   name: 'Hockey Game',
+  //   testProp: 'Ceck'
+  // }
+  // console.log(sportData)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <ul>
+        <EventListed  {...sportData} />
+      </ul>
     </div>
   );
 }
