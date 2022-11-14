@@ -175,7 +175,7 @@ export const data = [
             "timeVenueUTC": "00:00:00",
             "dateVenue": "2023-02-19",
             "stadium": null,
-            "homeTeam": null,
+            "homeTeam": "-",
             "awayTeam": {
                 "name": "Urawa Reds",
                 "officialName": "Urawa Red Diamonds SC",
