@@ -1,8 +1,9 @@
-export const data = [
+{
+    "data": [
         {
             "season": 2022,
             "status": "played",
-            "timeVenueUTC": "00:00",
+            "timeVenueUTC": "00:00:00",
             "dateVenue": "2022-02-03",
             "stadium": null,
             "homeTeam": {
@@ -43,7 +44,7 @@ export const data = [
         {
             "season": 2022,
             "status": "scheduled",
-            "timeVenueUTC": "16:00",
+            "timeVenueUTC": "16:00:00",
             "dateVenue": "2023-02-03",
             "stadium": null,
             "homeTeam": {
@@ -56,7 +57,7 @@ export const data = [
             },
             "awayTeam": {
                 "name": "Shabab Al Ahli",
-                "officialName": "Shabab Al Ahli Dubai FC",
+                "officialName": "SHABAB AL AHLI DUBAI",
                 "slug": "shabab-al-ahli-club",
                 "abbreviation": "SAH",
                 "teamCountryCode": "UAE",
@@ -86,12 +87,12 @@ export const data = [
         {
             "season": 2022,
             "status": "scheduled",
-            "timeVenueUTC": "15:25",
+            "timeVenueUTC": "15:25:00",
             "dateVenue": "2023-02-04",
             "stadium": null,
             "homeTeam": {
                 "name": "Al Duhail",
-                "officialName": "Al Duhail SC",
+                "officialName": "AL DUHAIL SC",
                 "slug": "al-duhail-sc",
                 "abbreviation": "DUH",
                 "teamCountryCode": "QAT",
@@ -99,7 +100,7 @@ export const data = [
             },
             "awayTeam": {
                 "name": "Al Rayyan",
-                "officialName": "Al Rayyan SC",
+                "officialName": "AL RAYYAN SC",
                 "slug": "al-rayyan-sc",
                 "abbreviation": "RYN",
                 "teamCountryCode": "QAT",
@@ -129,7 +130,7 @@ export const data = [
         {
             "season": 2022,
             "status": "scheduled",
-            "timeVenueUTC": "08:00",
+            "timeVenueUTC": "08:00:00",
             "dateVenue": "2023-02-04",
             "stadium": null,
             "homeTeam": {
@@ -142,7 +143,7 @@ export const data = [
             },
             "awayTeam": {
                 "name": "Foolad",
-                "officialName": "Foolad Khouzestan FC",
+                "officialName": "FOOLAD KHOUZESTAN FC",
                 "slug": "foolad-khuzestan-fc",
                 "abbreviation": "FLD",
                 "teamCountryCode": "IRN",
@@ -172,13 +173,13 @@ export const data = [
         {
             "season": 2022,
             "status": "scheduled",
-            "timeVenueUTC": "00:00",
+            "timeVenueUTC": "00:00:00",
             "dateVenue": "2023-02-19",
             "stadium": null,
-            "homeTeam": "-",
+            "homeTeam": null,
             "awayTeam": {
                 "name": "Urawa Reds",
-                "officialName": "Urawa Red Diamonds SC",
+                "officialName": "Urawa Red Diamonds",
                 "slug": "urawa-red-diamonds",
                 "abbreviation": "RED",
                 "teamCountryCode": "JPN",
@@ -225,5 +226,5 @@ export const data = [
             "originCompetitionId": "afc-champions-league",
             "originCompetitionName": "AFC Champions League"
         }
-    ];
-
+    ]
+}

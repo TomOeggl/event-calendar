@@ -1,17 +1,78 @@
 import { useState } from "react";
 import { data } from "../assets/sportData";
-import logo1 from "../assets/logos/al-duhail-logo.png";
+
 import soccerIcon from "../assets/customIcons/soccer-icon.png";
 import yellowIcon from "../assets/customIcons/yellow.png";
 import yellowRedIcon from "../assets/customIcons/yellow-red.png";
 import redIcon from "../assets/customIcons/red.png";
-import { render } from "@testing-library/react";
+
 import useMediaQuery from "../hooks/useMediaQuery";
 
 const CalendarWrapper = () => {
-  const [eventData, setEventData] = useState({ data });
-  setEventData = () => {};
-  return <></>;
+  function convertData(rawData) {
+    let convertedData = [];
+    rawData.map((rawElement, i) => {
+      let convertedElement = {
+        key: i,
+        status: rawElement.status,
+        date: rawElement.dateVenue,
+        time: rawElement.timeVenueUTC,
+        stage: rawElement.stage.name,
+        group: rawElement.stage.ordering,
+        homeTeam: {
+          name: rawElement.homeTeam.name,
+          short: rawElement.homeTeam.abbreviation,
+          logo: rawElement.homeTeam.slug,
+          countryCode: rawElement.homeTeam.teamCountryCode,
+        },
+        awayTeam: {
+          name: rawElement.awayTeam.name,
+          short: rawElement.awayTeam.abbreviation,
+          logo: rawElement.awayTeam.slug,
+          countryCode: rawElement.awayTeam.teamCountryCode,
+        },
+        result: {
+          winner: rawElement.result.winner,
+          homeTeam: {
+            goals: rawElement.result.homeGoals,
+            detailedGoals: rawElement.result.goals.homeTeam,
+            yellowCards: rawElement.result.yellowCards.homeTeam,
+            yellowRedCards: rawElement.result.secondYellowCards.homeTeam,
+            redCards: rawElement.result.directRedCards.homeTeam,
+          },
+          awayTeam: {
+            goals: rawElement.result.awayGoals,
+            detailedGoals: rawElement.result.goals.awayTeam,
+            yellowCards: rawElement.result.yellowCards.awayTeam,
+            yellowRedCards: rawElement.result.secondYellowCards.awayTeam,
+            redCards: rawElement.result.directRedCards.awayTeam,
+          },
+        },
+      };
+      if (rawElement.status === "scheduled") {
+        delete convertedElement.result;
+      }
+      if (rawElement.homeTeam === "-") {
+        convertedElement.homeTeam.name = " ? ";
+        convertedElement.homeTeam.logo = "placeholder";
+      }
+      if (rawElement.awayTeam === "-") {
+        convertedElement.awayTeam.name = " ? ";
+        convertedElement.awayTeam.logo = "placeholder";
+      }
+      convertedData.push(convertedElement);
+    });
+    return convertedData;
+  }
+  const [eventData, setEventData] = useState(convertData(data));
+
+  return (
+    <div className="md:grid-cols-2 grid-cols-1 grid  grid-flow-rows gap-4 mt-4">
+      {eventData.map((game) => {
+        return <RenderGameCard gameData={game} />;
+      })}
+    </div>
+  );
 };
 
 const InfoBlock = ({ gameData }) => {
@@ -66,15 +127,17 @@ const InfoBlock = ({ gameData }) => {
       </div>
     ) : (
       <div className="grid grid-cols-12 px-1">
-        <p className=" col-span-5 text-left ">{handleArray(home)}</p>
+        <p className=" col-span-5 text-left italic font-semibold">{handleArray(home)}</p>
         <p className=" col-span-2 col-start-6 text-center"> {divider} </p>
-        <p className=" col-span-5 text-right ">{handleArray(away)}</p>
+        <p className=" col-span-5 text-right italic font-semibold">{handleArray(away)}</p>
       </div>
     );
   }
 
   function handleArray(resultsArray) {
-    if (resultsArray.length == 0) {
+    if (resultsArray === undefined) {
+      return "-";
+    } else if (resultsArray.length == 0) {
       return "-";
     } else if (typeof resultsArray === "string") {
       return resultsArray;
@@ -120,12 +183,17 @@ const InfoBlock = ({ gameData }) => {
 };
 
 const RenderGameCard = ({ gameData }) => {
-    const isTablet = useMediaQuery('(min-width: 500px)');
+  const isTablet = useMediaQuery("(min-width: 500px)");
   //when the game is still scheduled there can be no detailed result view
   const scheduled = gameData.result === undefined;
   //detail view toggle
   const [detailView, setView] = useState(false);
   //subcomponent code
+
+  function getLogo(slug) {
+    let path;
+    return (path = "/logos/" + slug + "-logo.png");
+  }
 
   //easy to access by const.key.etc or const[key][etc] => view = state
   const renderClub = Object.freeze({
@@ -135,9 +203,9 @@ const RenderGameCard = ({ gameData }) => {
         <div className=" col-span-5 text-right ">
           {gameData.homeTeam.name}
           <img
-            src={logo1}
-            alt="FC A Logo"
-            className=" object-scale-down w-12 h-12 inline-block mx-1"
+            src={getLogo(gameData.homeTeam.logo)}
+            alt={`${gameData.homeTeam.name} Logo`}
+            className=" object-scale-down w-10 h-10 inline-block mx-1"
           ></img>
         </div>
       ),
@@ -145,9 +213,9 @@ const RenderGameCard = ({ gameData }) => {
       awayTeam: (
         <div className=" col-span-5 text-left ">
           <img
-            src={logo1}
-            alt="FC A Logo"
-            className=" object-scale-down w-12 h-12 inline-block mx-1"
+            src={getLogo(gameData.awayTeam.logo)}
+            alt={`${gameData.awayTeam.name} Logo`}
+            className=" object-scale-down w-10 h-10 inline-block mx-1"
           ></img>
           {gameData.awayTeam.name}
         </div>
@@ -160,9 +228,13 @@ const RenderGameCard = ({ gameData }) => {
     `${gameData.time}`
   ) : (
     <div className="grid grid-cols-12   px-1">
-      <p className=" col-span-5 text-right pr-1">{gameData.result.homeTeam.goals}</p>
+      <p className=" col-span-5 text-right pr-1">
+        {gameData.result.homeTeam.goals}
+      </p>
       <p className=" col-span-2 col-start-6 text-center"> - </p>
-      <p className=" col-span-5 text-left pl-1">{gameData.result.awayTeam.goals}</p>
+      <p className=" col-span-5 text-left pl-1">
+        {gameData.result.awayTeam.goals}
+      </p>
     </div>
   );
   const detailsButton = (
@@ -175,18 +247,25 @@ const RenderGameCard = ({ gameData }) => {
   );
   const saveToCalendarButton = (
     <button
-      className=" border-2"
+      className=" shadow-md border-blue-600 bg-blue-200 hover:bg-blue-400 rounded-md px-4 py-1 my-2"
       onClick={() => alert("Saved to your Calender")}
     >
       Save to Calendar +
     </button>
   );
-  
 
   return (
-    <div className= {`${isTablet && "w-10/12 m-auto "}  shadow-xl p-1 bg-gray-200 hover:bg-gray-300 rounded-lg`} key={gameData.key}>
-      <div className=" text-center">
-        <p>Group C</p>
+    <div
+      className={`${
+        isTablet && "w-10/12 m-auto "
+      }  shadow-xl p-1 bg-gray-200 hover:bg-gray-300 rounded-lg `}
+      key={gameData.key}
+    >
+      <div className=" text-center ">
+        <div className="grid grid-cols-2 mx-1 mt-1 border-b-2 border-gray-400 mb-2">
+          <span className="col-span-1 text-left"> {gameData.date} </span>{" "}
+          <span className=" col-span-1 text-right">{gameData.stage}</span>
+        </div>
         <div className="grid grid-cols-12 py-2 font-semibold">
           {renderClub.mini.homeTeam}
           <div className=" col-span-2 text-xl mx-2 mt-2">{centralDisplay} </div>
@@ -204,4 +283,4 @@ const RenderDateElement = ({ date }) => {
   return <p className=" capitalize text-2xl underline my-1"> {date}</p>;
 };
 
-export { CalendarWrapper, RenderGameCard, RenderDateElement };
+export { CalendarWrapper, RenderGameCard, RenderDateElement, InfoBlock };

@@ -3,18 +3,24 @@ import Header from "./components/Header.js";
 import { data } from "./assets/sportData.js";
 
 import { Nav } from "./components/Nav.js";
-import { RenderDateElement, RenderGameCard } from "./components/Calendar.js";
+import { CalendarWrapper, RenderDateElement, RenderGameCard } from "./components/Calendar.js";
 import useMediaQuery from "./hooks/useMediaQuery.js";
+import AddEventForm from "./components/AddEventForm.js";
+
 
 //import sportData from '../src/assets/sportData.json'
 
 function App() {
   const sportData = data;
   const landscapeView = useMediaQuery("(min-width: 600px)");
-  console.log(landscapeView)
+
+
+  
+  //console.log(convertData(data))
 
   const mockData = {
     key: 1,
+    sport: "Soccer",
     homeTeam: { name: "FC Abcdfgh", short: "FCA" },
     awayTeam: { name: "FC Bcd", short: "FCB" },
     status: "played",
@@ -39,16 +45,19 @@ function App() {
     stage: "Round of 16",
     group: 4,
   };
-  console.log(mockData);
+  //console.log(mockData);
   return (
     <div className="App">
       <Header />
       <Nav />
-      <RenderDateElement date="Tuesday, 2. November 2022" />
-      <div className={`${landscapeView ? "grid-cols-2" : "grid-cols-1"} grid  grid-flow-rows gap-4`}>
+      <AddEventForm />
+      {/* <RenderDateElement date="Tuesday, 2. November 2022" /> */}
+      <CalendarWrapper />
+      {/* <div className={`${landscapeView ? "grid-cols-2" : "grid-cols-1"} grid  grid-flow-rows gap-4`}>
+        
+        <RenderGameCard gameData={convertData(data)[0]} />
         <RenderGameCard gameData={mockData} />
-        <RenderGameCard gameData={mockData} />
-      </div>
+      </div> */}
       {/* <div>
         <EventListedUI  {...sportData} />
       </div> */}
