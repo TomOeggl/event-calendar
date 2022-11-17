@@ -1,9 +1,8 @@
 import { useState } from "react";
 
-const AddEventForm = ({ onSave = {} }) => {
+const AddEventForm = (props) => {
+  const [isOpen, setIsOpen] = useState(false);
   const [gameData, setGameData] = useState({});
-  const { homeTeam, awayTeam, date, time, sport } = gameData;
-
   const [validations, setValidations] = useState({
     homeTeam: "",
     awayTeam: "",
@@ -73,10 +72,15 @@ const AddEventForm = ({ onSave = {} }) => {
     return isValid;
   };
 
+  const handleClick = () => {
+    setIsOpen((prev) => {return !prev});
+  }
+
   const handleChange = (event) => {
     const { name, value } = event.target;
 
     setGameData((prevData) => ({ ...prevData, [name]: value }));
+    console.log(gameData);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -85,7 +89,17 @@ const AddEventForm = ({ onSave = {} }) => {
     if (!isValid) {
       return false;
     }
-    console.log(gameData);
+
+    props.handleSave(gameData);
+    setGameData((prevData) => ({
+      ...prevData,
+      homeTeam: "",
+      awayTeam: "",
+      date: "",
+      time: "",
+      venue: "",
+      sport: "",
+    }));
   };
 
   const {
@@ -95,89 +109,116 @@ const AddEventForm = ({ onSave = {} }) => {
     time: timeVal,
     sport: sportVal,
   } = validations;
+
+  const domElements = Object.freeze({
+    addEventButton: <button className=" custom-btn" onClick={handleClick}>{isOpen ? "Close" : "Add Event"}</button>,
+    innerForm: (
+      <form className=" bg-pink-300 px-2 py-2 grid grid-cols-2 grid-flow-row justify-items-stretch gap-2">
+        <div className="">
+          {/* <label htmlFor="homeTeam" className="pr-2">HomeTeam</label> */}
+
+          <input
+            className="custom-input-field"
+            type="text"
+            placeholder="Home Team"
+            name="homeTeam"
+            value={gameData.homeTeam}
+            onChange={handleChange}
+          />
+          <span className="italic pl-1 text-red-600 text-sm">
+            {homeTeamVal}
+          </span>
+        </div>
+
+        <div className="">
+          {/* <label htmlFor="homeTeam" className="pr-2">HomeTeam</label> */}
+          <input
+            className="custom-input-field"
+            type="text"
+            placeholder="Away Team"
+            name="awayTeam"
+            value={gameData.awayTeam}
+            onChange={handleChange}
+          />
+          <span className="italic pl-1 text-red-600 text-sm">
+            {awayTeamVal}
+          </span>
+        </div>
+        <div className="">
+          {/* <label htmlFor="homeTeam" className="pr-2">HomeTeam</label> */}
+          <input
+            className="custom-input-field"
+            type="text"
+            placeholder="DD.MM.YYYY"
+            name="date"
+            value={gameData.date}
+            onChange={handleChange}
+          />
+          <span className="italic pl-1 text-red-600 text-sm">{dateVal}</span>
+        </div>
+        <div className="">
+          {/* <label htmlFor="homeTeam" className="pr-2">HomeTeam</label> */}
+          <input
+            className="custom-input-field"
+            type="text"
+            placeholder="HH:MM"
+            name="time"
+            value={gameData.time}
+            onChange={handleChange}
+          />
+          <span className="italic pl-1 text-red-600 text-sm">{timeVal}</span>
+        </div>
+        <div className="">
+          {/* <label htmlFor="homeTeam" className="pr-2">HomeTeam</label> */}
+          <input
+            className="custom-input-field"
+            type="text"
+            placeholder="Venue"
+            name="venue"
+            value={gameData.venue}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <select
+            className="custom-input-field"
+            name="sport"
+            onChange={handleChange}
+            value={gameData.sport}
+            defaultValue=""
+          >
+            <option value="" disabled hidden>
+              Choose a sport{" "}
+            </option>
+            <option key="soccer" value="soccer">
+              Soccer
+            </option>
+            <option key="football" value="football">
+              Football
+            </option>
+            <option key="hockey" value="hockey">
+              Hockey
+            </option>
+          </select>
+          <div className="italic pl-1 text-red-600 text-sm">{sportVal}</div>
+        </div>
+
+        <div>
+          <button className="custom-btn" type="submit" onClick={handleSubmit}>
+            Submit
+          </button>
+        </div>
+      </form>
+    ),
+    test: null,
+  });
   return (
-    <form className=" bg-pink-300 px-2 py-2 grid grid-cols-2 grid-flow-row justify-items-stretch gap-2">
-      <div className="">
-        {/* <label htmlFor="homeTeam" className="pr-2">HomeTeam</label> */}
-        <input
-            className="custom-input-field"
-          type="text"
-          placeholder="Home Team"
-          name="homeTeam"
-          onChange={handleChange}
-        />
-        <span className="italic pl-1 text-red-600 text-sm">{homeTeamVal}</span>
-      </div>
+    <div>
+      <div>{domElements.addEventButton}</div>
+      <div>{isOpen && domElements.innerForm}</div>
+    </div>
 
-      <div className="">
-        {/* <label htmlFor="homeTeam" className="pr-2">HomeTeam</label> */}
-        <input
-            className="custom-input-field"
-          type="text"
-          placeholder="Away Team"
-          name="awayTeam"
-          onChange={handleChange}
-        />
-        <span className="italic pl-1 text-red-600 text-sm">{awayTeamVal}</span>
-      </div>
-      <div className="">
-        {/* <label htmlFor="homeTeam" className="pr-2">HomeTeam</label> */}
-        <input
-            className="custom-input-field"
-          type="text"
-          placeholder="DD.MM.YYYY"
-          name="date"
-          onChange={handleChange}
-        />
-        <span className="italic pl-1 text-red-600 text-sm">{dateVal}</span>
-      </div>
-      <div className="">
-        {/* <label htmlFor="homeTeam" className="pr-2">HomeTeam</label> */}
-        <input
-            className="custom-input-field"
-          type="text"
-          placeholder="HH:MM"
-          name="time"
-          onChange={handleChange}
-        />
-        <span className="italic pl-1 text-red-600 text-sm">{timeVal}</span>
-      </div>
-      <div className="">
-        {/* <label htmlFor="homeTeam" className="pr-2">HomeTeam</label> */}
-        <input
-            className="custom-input-field"
-          type="text"
-          placeholder="Venue"
-          name="venue"
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <select className="custom-input-field" name="sport" onChange={handleChange} value={gameData.sport}>
-          <option value="" disabled selected hidden>
-            Choose a sport{" "}
-          </option>
-          <option key="soccer" value="soccer">
-            Soccer
-          </option>
-          <option key="football" value="football">
-            Football
-          </option>
-          <option key="hockey" value="hockey">
-            Hockey
-          </option>
-        </select>
-        <div className="italic pl-1 text-red-600 text-sm">{sportVal}</div>
-
-      </div>
-
-      
-      <div>
-        <button type="submit" onClick={handleSubmit}>
-          Save
-        </button>
-      </div>
-    </form>
+    
   );
 };
 export default AddEventForm;

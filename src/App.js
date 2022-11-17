@@ -6,6 +6,7 @@ import { Nav } from "./components/Nav.js";
 import { CalendarWrapper, RenderDateElement, RenderGameCard } from "./components/Calendar.js";
 import useMediaQuery from "./hooks/useMediaQuery.js";
 import AddEventForm from "./components/AddEventForm.js";
+import MapTest from "./components/MapTest.js";
 
 
 //import sportData from '../src/assets/sportData.json'
@@ -50,17 +51,10 @@ function App() {
     <div className="App">
       <Header />
       <Nav />
-      <AddEventForm />
-      {/* <RenderDateElement date="Tuesday, 2. November 2022" /> */}
+     
+      
       <CalendarWrapper />
-      {/* <div className={`${landscapeView ? "grid-cols-2" : "grid-cols-1"} grid  grid-flow-rows gap-4`}>
-        
-        <RenderGameCard gameData={convertData(data)[0]} />
-        <RenderGameCard gameData={mockData} />
-      </div> */}
-      {/* <div>
-        <EventListedUI  {...sportData} />
-      </div> */}
+      
     </div>
   );
 }

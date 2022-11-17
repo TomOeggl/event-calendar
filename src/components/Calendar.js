@@ -7,6 +7,7 @@ import yellowRedIcon from "../assets/customIcons/yellow-red.png";
 import redIcon from "../assets/customIcons/red.png";
 
 import useMediaQuery from "../hooks/useMediaQuery";
+import AddEventForm from "./AddEventForm";
 
 const CalendarWrapper = () => {
   function convertData(rawData) {
@@ -14,6 +15,7 @@ const CalendarWrapper = () => {
     rawData.map((rawElement, i) => {
       let convertedElement = {
         key: i,
+        sport: "",
         status: rawElement.status,
         date: rawElement.dateVenue,
         time: rawElement.timeVenueUTC,
@@ -62,16 +64,64 @@ const CalendarWrapper = () => {
       }
       convertedData.push(convertedElement);
     });
+    
     return convertedData;
   }
   const [eventData, setEventData] = useState(convertData(data));
 
+  const addNewEventData = (newEventData) => {
+    let newEvent = {
+      homeTeam: {
+        name: newEventData.homeTeam,
+        short: null,
+        logo: "placeholder",
+        countryCode: null
+      },
+      awayTeam: {
+        name: newEventData.awayTeam,
+        short: null,
+        logo: "placeholder",
+        countryCode: null
+      },
+      date: newEventData.date,
+      time: newEventData.time,
+      sport: newEventData.sport,
+      status: "scheduled",
+      group: "",
+      stage: "",
+      key: 12
+
+      
+    }
+    // console.log(typeof eventData)
+    setEventData((prevData) =>{
+      let dummy = Array.from(prevData)
+      dummy.push(newEvent)
+      return dummy
+    });
+    console.log(eventData);
+    // eventData.map((e) => console.log(e))
+    // console.log(typeof eventData)
+  }
+
+  const handleSave = (newEventData) =>{
+    //setEventData({})
+    console.log(newEventData);
+    addNewEventData(newEventData)
+  };
+
   return (
-    <div className="md:grid-cols-2 grid-cols-1 grid  grid-flow-rows gap-4 mt-4">
+    <div>
+      
+      <AddEventForm handleSave= {handleSave}/>
+      <div className=" lg:grid-cols-2 grid-cols-1 grid  grid-flow-rows gap-4 mt-4">
       {eventData.map((game) => {
+        console.log(game)
         return <RenderGameCard gameData={game} />;
       })}
     </div>
+    </div>
+    
   );
 };
 
@@ -137,7 +187,7 @@ const InfoBlock = ({ gameData }) => {
   function handleArray(resultsArray) {
     if (resultsArray === undefined) {
       return "-";
-    } else if (resultsArray.length == 0) {
+    } else if (resultsArray.length === 0) {
       return "-";
     } else if (typeof resultsArray === "string") {
       return resultsArray;
@@ -145,7 +195,7 @@ const InfoBlock = ({ gameData }) => {
       let sumString = "";
       let connector = ", ";
       resultsArray.map((element, i) => {
-        if (i == resultsArray.length - 1) {
+        if (i === resultsArray.length - 1) {
           connector = "";
         }
         sumString += element + connector;

@@ -6,4 +6,8 @@
     .custom-input-field{
         @apply ring-indigo-500 border-none rounded w-full p-1;
     }
+
+    .custom-btn{
+        @apply shadow-md border-blue-600 bg-blue-200 hover:bg-blue-400 rounded-md px-4 py-1 my-2;
+    }
 }
