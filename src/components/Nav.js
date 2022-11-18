@@ -1,7 +1,11 @@
 const Nav = () => {
-    return(
-        <h1 className=" bg-green-400 py-4">Navigation Bar</h1>
-    )
-}
+  return (
+    <div className=" bg-black pb-4 ">
+      <span className=" py-0 text-white pl-2 text-4xl italic border-b-4 border-red-600 font-extrabold">
+        EVENTS
+      </span>
+    </div>
+  );
+};
 
-export {Nav};
+export default Nav;

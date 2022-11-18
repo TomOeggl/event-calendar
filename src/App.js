@@ -6,7 +6,6 @@ import { Nav } from "./components/Nav.js";
 import { CalendarWrapper, RenderDateElement, RenderGameCard } from "./components/Calendar.js";
 import useMediaQuery from "./hooks/useMediaQuery.js";
 import AddEventForm from "./components/AddEventForm.js";
-import MapTest from "./components/MapTest.js";
 
 
 //import sportData from '../src/assets/sportData.json'
@@ -48,9 +47,9 @@ function App() {
   };
   //console.log(mockData);
   return (
-    <div className="App">
+    <div className="App h-screen bg-gray-300">
       <Header />
-      <Nav />
+      
      
       
       <CalendarWrapper />

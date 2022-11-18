@@ -100,6 +100,7 @@ const AddEventForm = (props) => {
       venue: "",
       sport: "",
     }));
+    setIsOpen((prev) => {return !prev});
   };
 
   const {
@@ -111,9 +112,9 @@ const AddEventForm = (props) => {
   } = validations;
 
   const domElements = Object.freeze({
-    addEventButton: <button className=" custom-btn" onClick={handleClick}>{isOpen ? "Close" : "Add Event"}</button>,
+    addEventButton: <button className=" custom-btn w-screen my-0 py-2 rounded-none" onClick={handleClick}>{isOpen ? "Close" : "Add Event +"}</button>,
     innerForm: (
-      <form className=" bg-pink-300 px-2 py-2 grid grid-cols-2 grid-flow-row justify-items-stretch gap-2">
+      <form className=" px-2 py-2 grid grid-cols-2 grid-flow-row justify-items-stretch gap-2 max-w-4xl mx-auto pt-6">
         <div className="">
           {/* <label htmlFor="homeTeam" className="pr-2">HomeTeam</label> */}
 
@@ -181,12 +182,13 @@ const AddEventForm = (props) => {
         </div>
         <div>
           <select
-            className="custom-input-field"
+            menuPlacement="bottom"
+            className="custom-input-field pb-2"
             name="sport"
             onChange={handleChange}
             value={gameData.sport}
             defaultValue=""
-          >
+          > 
             <option value="" disabled hidden>
               Choose a sport{" "}
             </option>
@@ -203,9 +205,9 @@ const AddEventForm = (props) => {
           <div className="italic pl-1 text-red-600 text-sm">{sportVal}</div>
         </div>
 
-        <div>
+        <div className=" col-span-2 mx-auto">
           <button className="custom-btn" type="submit" onClick={handleSubmit}>
-            Submit
+            Save Event
           </button>
         </div>
       </form>
@@ -213,7 +215,7 @@ const AddEventForm = (props) => {
     test: null,
   });
   return (
-    <div>
+    <div className=" bg-green-700">
       <div>{domElements.addEventButton}</div>
       <div>{isOpen && domElements.innerForm}</div>
     </div>

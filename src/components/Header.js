@@ -1,8 +1,15 @@
+import Nav from "./Nav";
+
 function Header() {
     return (
-        <header className="font-bold text-4xl left-0 bg-red-700 py-8 underline">
-            Event Calendar
-        </header>
+        // <div className=" bg-[url('../public/banner.jpg')] bg-no-repeat bg-cover bg-left-bottom w-screen h-36">
+        <div>
+            <img className= "object-cover object-left-bottom h-32 lg:h-48 w-screen" src="/banner-gradient.png"/>
+            
+         </div>
+
+            
+        
     );
 }
 

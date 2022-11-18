@@ -8,6 +8,7 @@ import redIcon from "../assets/customIcons/red.png";
 
 import useMediaQuery from "../hooks/useMediaQuery";
 import AddEventForm from "./AddEventForm";
+import Nav from "./Nav";
 
 const CalendarWrapper = () => {
   function convertData(rawData) {
@@ -111,10 +112,10 @@ const CalendarWrapper = () => {
   };
 
   return (
-    <div>
-      
+    <div className="">
+      <Nav />
       <AddEventForm handleSave= {handleSave}/>
-      <div className=" lg:grid-cols-2 grid-cols-1 grid  grid-flow-rows gap-4 mt-4">
+      <div className=" lg:grid-cols-2 grid-cols-1 grid  grid-flow-rows gap-8 mt-4 lg:max-w-screen-lg mx-auto">
       {eventData.map((game) => {
         console.log(game)
         return <RenderGameCard gameData={game} />;
@@ -176,8 +177,8 @@ const InfoBlock = ({ gameData }) => {
         <p className=" col-span-5 text-left">{handleArray(away)}</p>
       </div>
     ) : (
-      <div className="grid grid-cols-12 px-1">
-        <p className=" col-span-5 text-left italic font-semibold">{handleArray(home)}</p>
+      <div className="grid grid-cols-12 px-4">
+        <p className=" col-span-5 text-left italic py-0 font-semibold">{handleArray(home)}</p>
         <p className=" col-span-2 col-start-6 text-center"> {divider} </p>
         <p className=" col-span-5 text-right italic font-semibold">{handleArray(away)}</p>
       </div>
@@ -205,7 +206,7 @@ const InfoBlock = ({ gameData }) => {
   }
 
   return (
-    <div className=" bg-gray-200 ">
+    <div className=" bg-green-700 text-white rounded-b-lg mt-1">
       {centeredRow(
         homeResults.detailedGoals,
         customSoccerIcon,
@@ -226,14 +227,16 @@ const InfoBlock = ({ gameData }) => {
         customRedCardIcon,
         awayResults.redCards
       )}
+      <div className="py-2">
       {centeredRow(gameData.stage, "", "2. Nov 2022", "outward")}
       {centeredRow("UEFA Champions League", "", gameData.time, "outward")}
+      </div>
     </div>
   );
 };
 
 const RenderGameCard = ({ gameData }) => {
-  const isTablet = useMediaQuery("(min-width: 500px)");
+  const isTablet = useMediaQuery("(min-width: 640px)");
   //when the game is still scheduled there can be no detailed result view
   const scheduled = gameData.result === undefined;
   //detail view toggle
@@ -247,38 +250,64 @@ const RenderGameCard = ({ gameData }) => {
 
   //easy to access by const.key.etc or const[key][etc] => view = state
   const renderClub = Object.freeze({
-    mini: {
+    horizontal: {
       //always left, logo toward center in one line
       homeTeam: (
-        <div className=" col-span-5 text-right ">
+        <div className="custom-club-name col-span-5 text-right ">
           {gameData.homeTeam.name}
           <img
             src={getLogo(gameData.homeTeam.logo)}
             alt={`${gameData.homeTeam.name} Logo`}
-            className=" object-scale-down w-10 h-10 inline-block mx-1"
+            className="custom-club-logo"
           ></img>
         </div>
       ),
       //always right, logo toward center in one line
       awayTeam: (
-        <div className=" col-span-5 text-left ">
+        <div className="custom-club-name col-span-5 text-left ">
           <img
             src={getLogo(gameData.awayTeam.logo)}
             alt={`${gameData.awayTeam.name} Logo`}
-            className=" object-scale-down w-10 h-10 inline-block mx-1"
+            className="custom-club-logo"
           ></img>
           {gameData.awayTeam.name}
         </div>
       ),
+      },
+      vertical: {
+        //always left, logo toward center in one line
+        homeTeam: (
+          <div className="custom-club-name col-span-5 text-right grid grid-cols-1 justify-items-center">
+            
+            <img
+              src={getLogo(gameData.homeTeam.logo)}
+              alt={`${gameData.homeTeam.name} Logo`}
+              className="custom-club-logo"
+            ></img>
+            <div className="text-xl font-semibold">{gameData.homeTeam.name}</div>
+          </div>
+        ),
+        //always right, logo toward center in one line
+        awayTeam: (
+          <div className="custom-club-name col-span-5 text-left  grid grid-cols-1 justify-items-center">
+            <img
+              src={getLogo(gameData.awayTeam.logo)}
+              alt={`${gameData.awayTeam.name} Logo`}
+              className="custom-club-logo"
+            ></img>
+            <div className="text-xl font-semibold">{gameData.awayTeam.name}</div>
+          </div>
+        ),
+      },
     },
-  });
+  );
 
   //in center display time if scheduled or result if played (homeTeam : awayTeam)
   const centralDisplay = scheduled ? (
     `${gameData.time}`
   ) : (
-    <div className="grid grid-cols-12   px-1">
-      <p className=" col-span-5 text-right pr-1">
+    <div className="grid grid-cols-12 px-1">
+      <p className=" col-span-5 text-right pr-1 ">
         {gameData.result.homeTeam.goals}
       </p>
       <p className=" col-span-2 col-start-6 text-center"> - </p>
@@ -289,7 +318,7 @@ const RenderGameCard = ({ gameData }) => {
   );
   const detailsButton = (
     <button
-      className=" shadow-md border-blue-600 bg-blue-200 hover:bg-blue-400 rounded-md px-4 py-1 my-2"
+      className="custom-btn"
       onClick={() => setView(!detailView)}
     >
       {detailView ? "Hide" : "Details"}
@@ -297,7 +326,7 @@ const RenderGameCard = ({ gameData }) => {
   );
   const saveToCalendarButton = (
     <button
-      className=" shadow-md border-blue-600 bg-blue-200 hover:bg-blue-400 rounded-md px-4 py-1 my-2"
+      className="custom-btn"
       onClick={() => alert("Saved to your Calender")}
     >
       Save to Calendar +
@@ -307,19 +336,19 @@ const RenderGameCard = ({ gameData }) => {
   return (
     <div
       className={`${
-        isTablet && "w-10/12 m-auto "
-      }  shadow-xl p-1 bg-gray-200 hover:bg-gray-300 rounded-lg `}
+        isTablet && " w-full m-auto "
+      }  custom-event-card `}
       key={gameData.key}
     >
       <div className=" text-center ">
-        <div className="grid grid-cols-2 mx-1 mt-1 border-b-2 border-gray-400 mb-2">
+        <div className="grid grid-cols-2 mx-2 lg:mx-1 mt-1 px-1 mb-2 border-b-2 border-green-900 text-lg font-semibold">
           <span className="col-span-1 text-left"> {gameData.date} </span>{" "}
           <span className=" col-span-1 text-right">{gameData.stage}</span>
         </div>
-        <div className="grid grid-cols-12 py-2 font-semibold">
-          {renderClub.mini.homeTeam}
-          <div className=" col-span-2 text-xl mx-2 mt-2">{centralDisplay} </div>
-          {renderClub.mini.awayTeam}
+        <div className="grid grid-cols-12 font-semibold">
+          {isTablet ? renderClub.horizontal.homeTeam : renderClub.vertical.homeTeam}
+          <div className=" col-span-2 font-bold pt-6 md:pt-2 text-xl mx-0 mt-2">{centralDisplay} </div>
+          {isTablet ? renderClub.horizontal.awayTeam : renderClub.vertical.awayTeam}
         </div>
         {!scheduled ? detailsButton : saveToCalendarButton}
       </div>
