@@ -4,7 +4,7 @@
 
 @layer components{
     .custom-input-field{
-        @apply ring-indigo-500 border-none rounded w-full p-1;
+        @apply border-none rounded w-full md:w-full p-1 ;
     }
 
     .custom-btn{

@@ -114,7 +114,7 @@ const AddEventForm = (props) => {
   const domElements = Object.freeze({
     addEventButton: <button className=" custom-btn w-screen my-0 py-2 rounded-none" onClick={handleClick}>{isOpen ? "Close" : "Add Event +"}</button>,
     innerForm: (
-      <form className=" px-2 py-2 grid grid-cols-2 grid-flow-row justify-items-stretch gap-2 max-w-4xl mx-auto pt-6">
+      <form className=" lg:px-2 py-2 grid grid-cols-2 grid-flow-row justify-items-stretch gap-4 w-5/6 md:max-w-4xl mx-auto pt-6">
         <div className="">
           {/* <label htmlFor="homeTeam" className="pr-2">HomeTeam</label> */}
 
@@ -201,12 +201,15 @@ const AddEventForm = (props) => {
             <option key="hockey" value="hockey">
               Hockey
             </option>
+            <option key="quidditch" value="quidditch">
+              Quidditch
+            </option>
           </select>
           <div className="italic pl-1 text-red-600 text-sm">{sportVal}</div>
         </div>
 
-        <div className=" col-span-2 mx-auto">
-          <button className="custom-btn" type="submit" onClick={handleSubmit}>
+        <div className=" col-span-2 lg:mx-auto lg:w-10/12 lg:justify-items-center">
+          <button className="custom-btn w-full lg:w-full" type="submit" onClick={handleSubmit}>
             Save Event
           </button>
         </div>
@@ -215,7 +218,7 @@ const AddEventForm = (props) => {
     test: null,
   });
   return (
-    <div className=" bg-green-700">
+    <div className=" bg-gradient-to-tr from-green-700 to-green-600">
       <div>{domElements.addEventButton}</div>
       <div>{isOpen && domElements.innerForm}</div>
     </div>

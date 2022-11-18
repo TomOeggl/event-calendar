@@ -47,7 +47,7 @@ function App() {
   };
   //console.log(mockData);
   return (
-    <div className="App h-screen bg-gray-300">
+    <div className="App h-full lg:h-screen pb-16 bg-gradient-to-b from-gray-100 to-gray-300">
       <Header />
       
      

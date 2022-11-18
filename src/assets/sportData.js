@@ -3,7 +3,7 @@ export const data = [
             "season": 2022,
             "status": "played",
             "timeVenueUTC": "00:00",
-            "dateVenue": "2022-02-03",
+            "dateVenue": "2022-03-02",
             "stadium": null,
             "homeTeam": {
                 "name": "Al Shabab",

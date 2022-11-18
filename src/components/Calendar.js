@@ -16,7 +16,7 @@ const CalendarWrapper = () => {
     rawData.map((rawElement, i) => {
       let convertedElement = {
         key: i,
-        sport: "",
+        sport: "soccer",
         status: rawElement.status,
         date: rawElement.dateVenue,
         time: rawElement.timeVenueUTC,
@@ -63,9 +63,14 @@ const CalendarWrapper = () => {
         convertedElement.awayTeam.name = " ? ";
         convertedElement.awayTeam.logo = "placeholder";
       }
+      convertedElement.standardDate = getStandardDate(
+        rawElement.dateVenue,
+        rawElement.timeVenueUTC
+      );
+      convertedElement.date = getFormatedDate(convertedElement.standardDate)
       convertedData.push(convertedElement);
     });
-    
+
     return convertedData;
   }
   const [eventData, setEventData] = useState(convertData(data));
@@ -76,13 +81,13 @@ const CalendarWrapper = () => {
         name: newEventData.homeTeam,
         short: null,
         logo: "placeholder",
-        countryCode: null
+        countryCode: null,
       },
       awayTeam: {
         name: newEventData.awayTeam,
         short: null,
         logo: "placeholder",
-        countryCode: null
+        countryCode: null,
       },
       date: newEventData.date,
       time: newEventData.time,
@@ -90,39 +95,90 @@ const CalendarWrapper = () => {
       status: "scheduled",
       group: "",
       stage: "",
-      key: 12
+      key: 12,
+    };
 
-      
+    if (newEventData.venue !== undefined){
+      newEvent.stage = "@ " + newEventData.venue
     }
-    // console.log(typeof eventData)
-    setEventData((prevData) =>{
-      let dummy = Array.from(prevData)
-      dummy.push(newEvent)
-      return dummy
+    newEvent.standardDate = getStandardDate(newEventData.date, newEventData.time)
+    newEvent.date = getFormatedDate(newEvent.standardDate)
+    
+    setEventData((prevData) => {
+      let dummy = Array.from(prevData);
+      dummy.push(newEvent);
+      const sortedDummy = dummy.sort((a, b) => a.standardDate - b.standardDate);
+      return sortedDummy;
     });
     console.log(eventData);
-    // eventData.map((e) => console.log(e))
-    // console.log(typeof eventData)
-  }
+    
+  };
 
-  const handleSave = (newEventData) =>{
+  const handleSave = (newEventData) => {
     //setEventData({})
     console.log(newEventData);
-    addNewEventData(newEventData)
+    addNewEventData(newEventData);
   };
+
+  function getStandardDate(rawDate, rawTime) {
+    console.log(rawDate);
+    let dashDateArray = rawDate.split("-");
+    let dotDateArray = rawDate.split(".");
+    let timeArray = rawTime.split(":");
+    let standardDate = "";
+
+    if (dashDateArray.length > 1) {
+      dashDateArray.map((e) => {
+        if (e !== undefined) {
+          standardDate += e;
+        }
+      });
+    }
+    if (dotDateArray.length > 1) {
+      dotDateArray.map((e) => {
+        if (e !== undefined) {
+          standardDate = e + standardDate;
+        }
+      });
+    }
+    if (timeArray.length > 1) {
+      timeArray.map((e) => {
+        if (e !== undefined) {
+          standardDate += e;
+        }
+      });
+    }
+    console.log(getFormatedDate(standardDate))
+
+    return standardDate;
+  }
+
+  function getFormatedDate(standardDate){
+    let dateOnly = standardDate.substring(0, 8)
+    let day = dateOnly.substring(6,8)
+    let month = dateOnly.substring(4,6)
+    let year = dateOnly.substring(0,4)
+
+    let monthString = ["Jan.", "Feb.", "Mar.", "Apr.", "May", "June", "July", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."]
+
+    console.log([year, parseInt(month), day])
+
+    return(day + ". " + monthString[parseInt(month)] + " " + year);
+
+
+  }
 
   return (
     <div className="">
       <Nav />
-      <AddEventForm handleSave= {handleSave}/>
+      <AddEventForm handleSave={handleSave} />
       <div className=" lg:grid-cols-2 grid-cols-1 grid  grid-flow-rows gap-8 mt-4 lg:max-w-screen-lg mx-auto">
-      {eventData.map((game) => {
-        console.log(game)
-        return <RenderGameCard gameData={game} />;
-      })}
+        {eventData.map((game) => {
+          console.log(game);
+          return <RenderGameCard gameData={game} />;
+        })}
+      </div>
     </div>
-    </div>
-    
   );
 };
 
@@ -178,9 +234,13 @@ const InfoBlock = ({ gameData }) => {
       </div>
     ) : (
       <div className="grid grid-cols-12 px-4">
-        <p className=" col-span-5 text-left italic py-0 font-semibold">{handleArray(home)}</p>
+        <p className=" col-span-5 text-left italic py-0 font-semibold">
+          {handleArray(home)}
+        </p>
         <p className=" col-span-2 col-start-6 text-center"> {divider} </p>
-        <p className=" col-span-5 text-right italic font-semibold">{handleArray(away)}</p>
+        <p className=" col-span-5 text-right italic font-semibold">
+          {handleArray(away)}
+        </p>
       </div>
     );
   }
@@ -206,7 +266,7 @@ const InfoBlock = ({ gameData }) => {
   }
 
   return (
-    <div className=" bg-green-700 text-white rounded-b-lg mt-1">
+    <div className=" bg-green-700 text-white rounded-b-lg">
       {centeredRow(
         homeResults.detailedGoals,
         customSoccerIcon,
@@ -228,8 +288,8 @@ const InfoBlock = ({ gameData }) => {
         awayResults.redCards
       )}
       <div className="py-2">
-      {centeredRow(gameData.stage, "", "2. Nov 2022", "outward")}
-      {centeredRow("UEFA Champions League", "", gameData.time, "outward")}
+        {centeredRow(gameData.stage, "", "2. Nov 2022", "outward")}
+        {centeredRow("UEFA Champions League", "", gameData.time, "outward")}
       </div>
     </div>
   );
@@ -273,34 +333,32 @@ const RenderGameCard = ({ gameData }) => {
           {gameData.awayTeam.name}
         </div>
       ),
-      },
-      vertical: {
-        //always left, logo toward center in one line
-        homeTeam: (
-          <div className="custom-club-name col-span-5 text-right grid grid-cols-1 justify-items-center">
-            
-            <img
-              src={getLogo(gameData.homeTeam.logo)}
-              alt={`${gameData.homeTeam.name} Logo`}
-              className="custom-club-logo"
-            ></img>
-            <div className="text-xl font-semibold">{gameData.homeTeam.name}</div>
-          </div>
-        ),
-        //always right, logo toward center in one line
-        awayTeam: (
-          <div className="custom-club-name col-span-5 text-left  grid grid-cols-1 justify-items-center">
-            <img
-              src={getLogo(gameData.awayTeam.logo)}
-              alt={`${gameData.awayTeam.name} Logo`}
-              className="custom-club-logo"
-            ></img>
-            <div className="text-xl font-semibold">{gameData.awayTeam.name}</div>
-          </div>
-        ),
-      },
     },
-  );
+    vertical: {
+      //always left, logo toward center in one line
+      homeTeam: (
+        <div className="custom-club-name col-span-5 text-right grid grid-cols-1 justify-items-center">
+          <img
+            src={getLogo(gameData.homeTeam.logo)}
+            alt={`${gameData.homeTeam.name} Logo`}
+            className="custom-club-logo"
+          ></img>
+          <div className="text-xl font-semibold">{gameData.homeTeam.name}</div>
+        </div>
+      ),
+      //always right, logo toward center in one line
+      awayTeam: (
+        <div className="custom-club-name col-span-5 text-left  grid grid-cols-1 justify-items-center">
+          <img
+            src={getLogo(gameData.awayTeam.logo)}
+            alt={`${gameData.awayTeam.name} Logo`}
+            className="custom-club-logo"
+          ></img>
+          <div className="text-xl font-semibold">{gameData.awayTeam.name}</div>
+        </div>
+      ),
+    },
+  });
 
   //in center display time if scheduled or result if played (homeTeam : awayTeam)
   const centralDisplay = scheduled ? (
@@ -318,7 +376,9 @@ const RenderGameCard = ({ gameData }) => {
   );
   const detailsButton = (
     <button
-      className="custom-btn"
+      className={`${
+        detailView && !isTablet && "border-b-4 border-green-900 rounded-none"
+      } custom-btn`}
       onClick={() => setView(!detailView)}
     >
       {detailView ? "Hide" : "Details"}
@@ -335,20 +395,27 @@ const RenderGameCard = ({ gameData }) => {
 
   return (
     <div
-      className={`${
-        isTablet && " w-full m-auto "
-      }  custom-event-card `}
+      className={`${isTablet && " w-full m-auto "}  custom-event-card `}
       key={gameData.key}
     >
       <div className=" text-center ">
-        <div className="grid grid-cols-2 mx-2 lg:mx-1 mt-1 px-1 mb-2 border-b-2 border-green-900 text-lg font-semibold">
-          <span className="col-span-1 text-left"> {gameData.date} </span>{" "}
+        <div className="grid grid-cols-3 mx-2 lg:mx-1 mt-1 px-1 mb-2 border-b-2 border-green-900 text-lg font-semibold">
+          <span className="col-span-1 text-left"> {gameData.date} </span>
+          <span className="col-span-1 italic uppercase text-green-900 ">
+            {gameData.sport}
+          </span>
           <span className=" col-span-1 text-right">{gameData.stage}</span>
         </div>
         <div className="grid grid-cols-12 font-semibold">
-          {isTablet ? renderClub.horizontal.homeTeam : renderClub.vertical.homeTeam}
-          <div className=" col-span-2 font-bold pt-6 md:pt-2 text-xl mx-0 mt-2">{centralDisplay} </div>
-          {isTablet ? renderClub.horizontal.awayTeam : renderClub.vertical.awayTeam}
+          {isTablet
+            ? renderClub.horizontal.homeTeam
+            : renderClub.vertical.homeTeam}
+          <div className=" col-span-2 font-bold pt-6 md:pt-2 text-xl mx-0 mt-2">
+            {centralDisplay}{" "}
+          </div>
+          {isTablet
+            ? renderClub.horizontal.awayTeam
+            : renderClub.vertical.awayTeam}
         </div>
         {!scheduled ? detailsButton : saveToCalendarButton}
       </div>
