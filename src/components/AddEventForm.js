@@ -73,8 +73,10 @@ const AddEventForm = (props) => {
   };
 
   const handleClick = () => {
-    setIsOpen((prev) => {return !prev});
-  }
+    setIsOpen((prev) => {
+      return !prev;
+    });
+  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -100,7 +102,9 @@ const AddEventForm = (props) => {
       venue: "",
       sport: "",
     }));
-    setIsOpen((prev) => {return !prev});
+    setIsOpen((prev) => {
+      return !prev;
+    });
   };
 
   const {
@@ -112,12 +116,17 @@ const AddEventForm = (props) => {
   } = validations;
 
   const domElements = Object.freeze({
-    addEventButton: <button className=" custom-btn w-screen my-0 py-2 rounded-none" onClick={handleClick}>{isOpen ? "Close" : "Add Event +"}</button>,
+    addEventButton: (
+      <button
+        className=" custom-btn w-screen my-0 py-2 rounded-none"
+        onClick={handleClick}
+      >
+        {isOpen ? "Close" : "Add Event +"}
+      </button>
+    ),
     innerForm: (
       <form className=" lg:px-2 py-2 grid grid-cols-2 grid-flow-row justify-items-stretch gap-4 w-5/6 md:max-w-4xl mx-auto pt-6">
         <div className="">
-          {/* <label htmlFor="homeTeam" className="pr-2">HomeTeam</label> */}
-
           <input
             className="custom-input-field"
             type="text"
@@ -126,13 +135,12 @@ const AddEventForm = (props) => {
             value={gameData.homeTeam}
             onChange={handleChange}
           />
-          <span className="italic pl-1 text-red-600 text-sm">
+          <span className="italic font-bold mt-1 pl-1 text-red-800 text-sm">
             {homeTeamVal}
           </span>
         </div>
 
         <div className="">
-          {/* <label htmlFor="homeTeam" className="pr-2">HomeTeam</label> */}
           <input
             className="custom-input-field"
             type="text"
@@ -141,12 +149,11 @@ const AddEventForm = (props) => {
             value={gameData.awayTeam}
             onChange={handleChange}
           />
-          <span className="italic pl-1 text-red-600 text-sm">
+          <span className="italic font-bold mt-1 pl-1 text-red-800 text-sm">
             {awayTeamVal}
           </span>
         </div>
         <div className="">
-          {/* <label htmlFor="homeTeam" className="pr-2">HomeTeam</label> */}
           <input
             className="custom-input-field"
             type="text"
@@ -155,10 +162,9 @@ const AddEventForm = (props) => {
             value={gameData.date}
             onChange={handleChange}
           />
-          <span className="italic pl-1 text-red-600 text-sm">{dateVal}</span>
+          <span className="italic font-bold mt-1 pl-1 text-red-800 text-sm">{dateVal}</span>
         </div>
         <div className="">
-          {/* <label htmlFor="homeTeam" className="pr-2">HomeTeam</label> */}
           <input
             className="custom-input-field"
             type="text"
@@ -167,10 +173,9 @@ const AddEventForm = (props) => {
             value={gameData.time}
             onChange={handleChange}
           />
-          <span className="italic pl-1 text-red-600 text-sm">{timeVal}</span>
+          <span className="italic font-bold mt-1 pl-1 text-red-800 text-sm">{timeVal}</span>
         </div>
         <div className="">
-          {/* <label htmlFor="homeTeam" className="pr-2">HomeTeam</label> */}
           <input
             className="custom-input-field"
             type="text"
@@ -188,9 +193,9 @@ const AddEventForm = (props) => {
             onChange={handleChange}
             value={gameData.sport}
             defaultValue=""
-          > 
+          >
             <option value="" disabled hidden>
-              Choose a sport{" "}
+              Choose a sport
             </option>
             <option key="soccer" value="soccer">
               Soccer
@@ -205,11 +210,15 @@ const AddEventForm = (props) => {
               Quidditch
             </option>
           </select>
-          <div className="italic pl-1 text-red-600 text-sm">{sportVal}</div>
+          <div className="italic font-bold mt-1 pl-1 text-red-800 text-sm">{sportVal}</div>
         </div>
 
         <div className=" col-span-2 lg:mx-auto lg:w-10/12 lg:justify-items-center">
-          <button className="custom-btn w-full lg:w-full" type="submit" onClick={handleSubmit}>
+          <button
+            className="custom-btn w-full lg:w-full"
+            type="submit"
+            onClick={handleSubmit}
+          >
             Save Event
           </button>
         </div>
@@ -217,13 +226,12 @@ const AddEventForm = (props) => {
     ),
     test: null,
   });
+
   return (
     <div className=" bg-gradient-to-tr from-green-700 to-green-600">
       <div>{domElements.addEventButton}</div>
       <div>{isOpen && domElements.innerForm}</div>
     </div>
-
-    
   );
 };
 export default AddEventForm;

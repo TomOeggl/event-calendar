@@ -10,11 +10,11 @@
     .custom-btn{
         
         @apply shadow-md border-blue-600 bg-green-900 text-white hover:bg-green-700 
-         transition-all rounded-b sm:rounded-md sm:w-64 w-screen mt-4 py-2 sm:my-2 text-lg font-semibold;
+         transition-colors rounded-b sm:rounded-md sm:w-64 w-screen mt-4 py-2 sm:my-2 text-lg font-semibold;
     }
 
     .custom-event-card{
-        @apply shadow-xl bg-gray-100 hover:bg-gray-100  transition-all rounded-lg p-0 sm:w-96 ;
+        @apply shadow-xl bg-gray-100 hover:bg-gray-100  transition-colors rounded-lg p-0 sm:w-96 ;
     }
 
     .custom-club-logo{
@@ -22,7 +22,7 @@
     }
 
     .custom-club-name{
-        @apply text-sm md:text-lg; 
+        @apply text-sm lg:text-lg; 
     }
 
 }

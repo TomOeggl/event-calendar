@@ -26,10 +26,19 @@ export const data = [
                 "awayGoals": 2,
                 "winner": "Nasaf",
                 "message": null,
-                "goals": [],
-                "yellowCards": [],
+                "goals": {
+                   "homeTeam": ["Al-Muwallad '34"],
+                   "awayTeam": ["Akromov '51", "Solovjev '78"]
+                },
+                "yellowCards": {
+                    "homeTeam": ["Saeed '87"],
+                    "awayTeam": []
+                },
                 "secondYellowCards": [],
-                "directRedCards": [],
+                "directRedCards": {
+                    "homeTeam": [],
+                    "awayTeam": ["Davronov '14"]
+                },
             },
             "stage": {
                 "id": "ROUND OF 16",
@@ -39,6 +48,73 @@ export const data = [
             "group": null,
             "originCompetitionId": "afc-champions-league",
             "originCompetitionName": "AFC Champions League"
+        },
+        {
+            "season": 2022,
+            "status": "played",
+            "sport": "quidditch",
+            "timeVenueUTC": "21:00",
+            "dateVenue": "2022-07-19",
+            "stadium": null,
+            "homeTeam": {
+                "name": "Gryffindor",
+                "officialName": "Gryffindor QC",
+                "slug": "gryffindor",
+                "abbreviation": "GRY",
+                "teamCountryCode": "HOG",
+                "stagePosition": null
+            },
+            "awayTeam": {
+                "name": "Slytherin",
+                "officialName": "Slytherin QC",
+                "slug": "slytherin",
+                "abbreviation": "SLY",
+                "teamCountryCode": "HOG",
+                "stagePosition": null
+            },
+            "result": {
+                "homeGoals": 3,
+                "awayGoals": 2,
+                "winner": null,
+                "message": null,
+                "goals": {
+                    "homeTeam": ["Potter '34, '61", "Smith '54"],
+                    "awayTeam": ["Flint '21", "Pucey '82"]
+                 },
+                "yellowCards": [],
+                "secondYellowCards": [],
+                "directRedCards": [],
+                "scoreByPeriods": {
+                    "firstHalf": {
+                        "home": null,
+                        "away": null
+                    },
+                    "secondHalf": {
+                        "home": null,
+                        "away": null
+                    },
+                    "thirdHalf": {
+                        "home": null,
+                        "away": null
+                    },
+                    "penalty": {
+                        "home": null,
+                        "away": null
+                    },
+                    "extraTime": {
+                        "home": null,
+                        "away": null
+                    }
+                }
+            },
+            "stage": {
+                "id": "FINAL",
+                "name": "FINAL",
+                "ordering": 7
+            },
+            "group": null,
+            "originCompetitionId": "afc-champions-league",
+            "originCompetitionName": "Quidditch World Championship"
         },
         {
             "season": 2022,
@@ -83,49 +159,7 @@ export const data = [
             "originCompetitionId": "afc-champions-league",
             "originCompetitionName": "AFC Champions League"
         },
-        {
-            "season": 2022,
-            "status": "scheduled",
-            "timeVenueUTC": "15:25",
-            "dateVenue": "2023-02-04",
-            "stadium": null,
-            "homeTeam": {
-                "name": "Al Duhail",
-                "officialName": "Al Duhail SC",
-                "slug": "al-duhail-sc",
-                "abbreviation": "DUH",
-                "teamCountryCode": "QAT",
-                "stagePosition": null
-            },
-            "awayTeam": {
-                "name": "Al Rayyan",
-                "officialName": "Al Rayyan SC",
-                "slug": "al-rayyan-sc",
-                "abbreviation": "RYN",
-                "teamCountryCode": "QAT",
-                "stagePosition": null
-            },
-            "result": {
-                "homeGoals": 0,
-                "awayGoals": 0,
-                "winner": null,
-                "winnerId": null,
-                "message": null,
-                "goals": [],
-                "yellowCards": [],
-                "secondYellowCards": [],
-                "directRedCards": [],
-                "scoreByPeriods": null
-            },
-            "stage": {
-                "id": "ROUND OF 16",
-                "name": "ROUND OF 16",
-                "ordering": 4
-            },
-            "group": null,
-            "originCompetitionId": "afc-champions-league",
-            "originCompetitionName": "AFC Champions League"
-        },
+        
         {
             "season": 2022,
             "status": "scheduled",
@@ -169,6 +203,51 @@ export const data = [
             "originCompetitionId": "afc-champions-league",
             "originCompetitionName": "AFC Champions League"
         },
+       
+        {
+            "season": 2022,
+            "status": "scheduled",
+            "timeVenueUTC": "15:25",
+            "dateVenue": "2023-02-04",
+            "stadium": null,
+            "homeTeam": {
+                "name": "Al Duhail",
+                "officialName": "Al Duhail SC",
+                "slug": "al-duhail-sc",
+                "abbreviation": "DUH",
+                "teamCountryCode": "QAT",
+                "stagePosition": null
+            },
+            "awayTeam": {
+                "name": "Al Rayyan",
+                "officialName": "Al Rayyan SC",
+                "slug": "al-rayyan-sc",
+                "abbreviation": "RYN",
+                "teamCountryCode": "QAT",
+                "stagePosition": null
+            },
+            "result": {
+                "homeGoals": 0,
+                "awayGoals": 0,
+                "winner": null,
+                "winnerId": null,
+                "message": null,
+                "goals": [],
+                "yellowCards": [],
+                "secondYellowCards": [],
+                "directRedCards": [],
+                "scoreByPeriods": null
+            },
+            "stage": {
+                "id": "ROUND OF 16",
+                "name": "ROUND OF 16",
+                "ordering": 4
+            },
+            "group": null,
+            "originCompetitionId": "afc-champions-league",
+            "originCompetitionName": "AFC Champions League"
+        },
+        
         {
             "season": 2022,
             "status": "scheduled",
