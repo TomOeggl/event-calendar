@@ -1,4 +1,4 @@
-# Coding Challenge: Sports events calendar
+# Coding Challenge: Sport events calendar
 
 ### Stack: ReactJS + Tailwind CSS
 
