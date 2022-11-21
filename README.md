@@ -18,3 +18,11 @@ somewhere.
 The site should be fully responsive on mobile and tablet
 5. Navigation
 Create a rudimentary navigation to switch between overview and the add event page
+
+Decided for a SPA, high contrast between navigation/header and content and reduced but comprehensive details view.
+
+### Screenshots of final result
+
+![mobile view example](./public/readmeImages/mobile.png)
+![tablet view example](./public/readmeImages/tablet.png)
+![view example on big screens](./public/readmeImages/big-screen.png)
