@@ -1,8 +1,8 @@
 # Coding Challenge: Sports events calendar
 
-## Stack: ReactJS + Tailwind CSS
+### Stack: ReactJS + Tailwind CSS
 
-### Goals:
+## Goals:
 
 1. Coding Exercise:
 
