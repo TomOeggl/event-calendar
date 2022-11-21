@@ -2,7 +2,7 @@
 
 # Stack: ReactJS + Tailwind CSS
 
-###Goals:
+### Goals:
 
 1. Coding Exercise:
 
