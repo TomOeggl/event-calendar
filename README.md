@@ -1,4 +1,4 @@
-# Coding Challenge for the sportradar coding academy (front end)
+# Coding Challenge: Sports events calendar
 
 ## Stack: ReactJS + Tailwind CSS
 
