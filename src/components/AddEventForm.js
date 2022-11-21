@@ -82,8 +82,8 @@ const AddEventForm = (props) => {
     const { name, value } = event.target;
 
     setGameData((prevData) => ({ ...prevData, [name]: value }));
-    console.log(gameData);
   };
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     const isValid = validateAll();
