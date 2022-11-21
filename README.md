@@ -31,7 +31,8 @@ Create a rudimentary navigation to switch between overview and the add event pag
 
 ## Approach
 
-Decided for a SPA, high contrast between navigation/header and content in ui design and and minimalistic, but comprehensive and (hopefully) effective interaction and data displaying possibilties. The page is broken down into self contained react elements with readability prioritized. Global data conversion and formatting functions have there own place in the utils directory, global style classes are defined in index.css.
+Decided for a SPA, high contrast between navigation/header and content in ui design and and minimalistic, but comprehensive and (hopefully) effective interaction and data displaying possibilties. The page is broken down into self contained react elements with readability in code and straightforward intuitive use in ux/ui design prioritized. 
+Global data conversion and formatting functions are stored in the utils directory, global style classes are defined in index.css.
 
 ### Screenshots of final result
 
