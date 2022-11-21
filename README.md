@@ -1,6 +1,6 @@
-## Coding Challenge for the sportradar coding academy (front end)
+# Coding Challenge for the sportradar coding academy (front end)
 
-# Stack: ReactJS + Tailwind CSS
+## Stack: ReactJS + Tailwind CSS
 
 ### Goals:
 
