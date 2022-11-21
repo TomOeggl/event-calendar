@@ -24,5 +24,6 @@ Decided for a SPA, high contrast between navigation/header and content and reduc
 ### Screenshots of final result
 
 ![mobile view example](./public/readmeImages/mobile.png)
+![mobile view valdation at work example](./public/readmeImages/validations-mobile.png)
 ![tablet view example](./public/readmeImages/tablet.png)
 ![view example on big screens](./public/readmeImages/big-screen.png)
