@@ -1,0 +1,14 @@
+ version: '3.8'
+ services:
+  client:
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    build:
+      dockerfile: Dockerfile
+      context: ./
+    ports: 
+      - "4001:3000"
+    volumes:
+      - /app/node_modules
+      - ./client:/app
