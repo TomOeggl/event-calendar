@@ -1,6 +1,7 @@
 {
   "name": "event-calendar",
   "version": "0.1.0",
+  "homepage": "https://tomoeggl.github.io/event-calendar",
   "private": true,
   "dependencies": {
     "@craco/craco": "^6.4.5",
@@ -13,6 +14,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "craco  --openssl-legacy-provider build",
+    "deploy": "gh-pages -d build",
     "start": "craco  --openssl-legacy-provider start",
     "build": "craco  --openssl-legacy-provider build",
     "test": "craco test",
@@ -38,6 +41,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^9.8.8",
+    "gh-pages": "^5.0.0",
     "postcss": "^7.0.39",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17"
   }

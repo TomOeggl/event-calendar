@@ -10,7 +10,7 @@ const EventCard = ({ gameData }) => {
    
     function getLogo(slug) {
       let path;
-      path = "/logos/" + slug + "-logo.png"
+      path = "./logos/" + slug + "-logo.png"
       return (path);
     }
   
