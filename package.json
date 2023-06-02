@@ -14,10 +14,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "predeploy": "craco  --openssl-legacy-provider build",
+    "predeploy": "craco build",
     "deploy": "gh-pages -d build",
-    "start": "craco  --openssl-legacy-provider start",
-    "build": "craco  --openssl-legacy-provider build",
+    "start": "craco start",
+    "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
   },
